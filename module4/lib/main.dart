@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:module4/screens/62_showDialog_box.dart';
+import 'package:module4/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,15 +15,23 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
             centerTitle: true,
-            color: Colors.purple,
-            titleTextStyle:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            color: Colors.black,
+            iconTheme: IconThemeData(color: Colors.white),
+            titleTextStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            )),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ShowDialogBox(),
+      // initialRoute: "/",
+      // routes: {
+      //   '/': (context) => HomePage(),
+      //   '/showBox': (context) => ShowDialogBox()
+      // },
+      home: const HomePage(),
     );
   }
 }
