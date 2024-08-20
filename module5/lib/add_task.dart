@@ -84,7 +84,7 @@ class _AddTaskState extends State<AddTask> {
                       onPressed: () => _selectDate(context))),
               const SizedBox(height: 14),
               CustomTextField(
-                  controller: _datePickerController,
+                  controller: _time,
                   hintText: "Enter Time",
                   keyboardType: TextInputType.number),
               const SizedBox(height: 14),

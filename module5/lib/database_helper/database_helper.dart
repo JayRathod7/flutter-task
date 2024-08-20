@@ -68,7 +68,8 @@ class DataBaseHelper {
 
   Future<List<Map<String, dynamic>>> showData() async {
     Database db = await database;
-    return await db.query(tableName);
+    return db.rawQuery("select * from $tableName order by $colDate desc");
+    // return await db.query(tableName);
   }
 
   Future<int> deleteData(int id) async {

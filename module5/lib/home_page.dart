@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:module5/add_task.dart';
 import 'package:module5/custom_widget/functions.dart';
 import 'database_helper/database_helper.dart';
@@ -57,7 +58,10 @@ class _HomePageState extends State<HomePage> {
                       _searchFilter(value);
                     },
                     controller: search,
-                    autofocus: false,
+                    // showCursor: false,
+                    onTapOutside: (PointerDownEvent event) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
                     decoration: const InputDecoration(
                         hintText: "Search in main",
                         border:
@@ -119,6 +123,7 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.only(top: 10, bottom: 10),
         itemCount: foundData.length,
         itemBuilder: (context, index) {
+          var task = foundData[index];
           return Container(
             // padding: const EdgeInsets.only(
             //     left: 14, right: 10, top: 4, bottom: 4),
@@ -127,7 +132,9 @@ class _HomePageState extends State<HomePage> {
             margin:
                 const EdgeInsets.only(left: 12, right: 12, top: 6, bottom: 6),
             decoration: BoxDecoration(
-                color: priorityColors(foundData[index].priority),
+                color: foundData[index].isDone == true
+                    ? Colors.grey
+                    : Colors.white,
                 border: Border.all(),
                 borderRadius: BorderRadius.circular(12)),
             child: InkWell(
@@ -248,8 +255,8 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: priorityColors(foundData[index].priority),
                     ),
                     padding: const EdgeInsets.all(2),
                     child: Text(
@@ -323,11 +330,14 @@ class _HomePageState extends State<HomePage> {
   priorityColors(number) {
     switch (number) {
       case 0:
-        return Colors.green.withOpacity(0.4);
+        // return Colors.green.withOpacity(0.4);
+        return Colors.green;
       case 1:
-        return Colors.blue.withOpacity(0.4);
+        return Colors.blue;
+      // return Colors.blue.withOpacity(0.4);
       case 2:
-        return Colors.red.withOpacity(0.4);
+        // return Colors.red.withOpacity(0.4);
+        return Colors.red;
     }
     setState(() {});
   }
@@ -364,6 +374,13 @@ class _HomePageState extends State<HomePage> {
               child: const Text("OKAY")),
         ]);
   }
+
+  // Color _getCardColor(String taskDate) {
+  //   final currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  //   return taskDate == currentDate
+  //       ? Colors.blue.withOpacity(0.4)
+  //       : Colors.red.withOpacity(0.4);
+  // }
 
   deleteData(id) {
     dataBaseHelper.deleteData(id);
